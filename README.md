@@ -17,13 +17,13 @@ Admin role will be hard coded initially, with admin login allowing setup for oth
  - Spring Boot
  - Node.js Maildev
  - Password Encoding
- - TODO: AWS S3 file uploading and filename encryption, React redirected front end after proper login, TailwindCSS and Anime.js to make front end POP.
+ - TODO: AWS S3 file uploading and filename encryption, React redirected front end after proper login, TailwindCSS and Anime.js to make front end POP, Unit Testing.
 
 # Requirements
- •	Register an Insurance claim along with insured details and attach one or more necessary supporting documents (system should allow only PDF and Word)
- •	View Claim and supporting documents
- •	Mark a particular claim as “Approved or Rejected”
- •	Notification (optional): Asynchronous email notification to Insured on claim status change
+    •	Register an Insurance claim along with insured details and attach one or more necessary supporting documents (system should allow only PDF and Word)
+    •	View Claim and supporting documents
+    •	Mark a particular claim as “Approved or Rejected”
+    •	Notification (optional): Asynchronous email notification to Insured on claim status change
     
     API:
     Proper use of HTTP methods, Parameters, Headers & response codes
