@@ -1,5 +1,5 @@
 import React from 'react'
-import {Route, Switch} from 'react-router-dom'
+import {Route, Routes} from 'react-router-dom'
 import ClaimDetails from "./ClaimDetails"
 import ClaimForm from "./ClaimForm"
 import ClaimList from "./ClaimList"
@@ -11,7 +11,7 @@ import SecretClaims from "./SecretClaims"
 const Claims = () => (
     <>
     <Menu></Menu>
-    <Switch>
+    <Routes>
         <Route exact path="/">
             <ClaimList />
         </Route>
@@ -27,7 +27,7 @@ const Claims = () => (
         <Route path="*">
             <NoMatch/>
         </Route>
-    </Switch>
+    </Routes>
     </>
 )
 

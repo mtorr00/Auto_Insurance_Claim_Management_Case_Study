@@ -8,7 +8,7 @@ spring:
   datasource:
     driverClassName: com.mysql.jdbc.Driver
     password: password123!
-    url: jdbc:mysql://localhost:3306/claims
+    url: jdbc:mysql://localhost:3306/aicm
     username: root
   jpa:
     hibernate:
