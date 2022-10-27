@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { allClaims } from '../Modules/claims';
+import { allClaims } from '../Modules/Claims';
 
 const ClaimDetails = () => {
     const { claimId } = useParams();
@@ -23,6 +23,8 @@ const ClaimDetails = () => {
       <div className="col-sm-12">
         <h1>Details for Claim ID {claim.id}</h1>
         <hr/>
+        <h3>Details:</h3>
+        <p className="lead">{claim.status}</p>
         <h3>Details:</h3>
         <p className="lead">{claim.details}</p>
         <h3>Filer:</h3>
