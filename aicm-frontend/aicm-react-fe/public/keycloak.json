@@ -1,8 +1,0 @@
-{
-  "realm": "aicmRealm",
-  "auth-server-url": "http://localhost:8180/",
-  "ssl-required": "external",
-  "resource": "react-login-client",
-  "public-client": true,
-  "confidential-port": 0
-}
