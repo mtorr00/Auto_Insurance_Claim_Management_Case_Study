@@ -1,5 +1,6 @@
 package com.gs.martintorrey.aicmbe2.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -7,10 +8,10 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.ArrayList;
 
+
 @Entity
 @Table(name="Claims")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class ClaimEntity {
     @Id
@@ -19,8 +20,9 @@ public class ClaimEntity {
     private Long id;
 
     private String filedBy;
+    private String filedByEmail;
     private String incidentDetails;
     private String status;
-    private ArrayList<String> urlsSupportingDocs;
+    private ArrayList<String> urlsSupportingDocs = new ArrayList<>();
 
 }

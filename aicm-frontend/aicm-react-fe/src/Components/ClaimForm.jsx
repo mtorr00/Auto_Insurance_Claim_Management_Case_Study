@@ -21,26 +21,26 @@ const ClaimForm = () => {
       .then(() => navigate("/"))
   };
 
-  return (
-    <div className="row">
-      <div className="col-sm-6">
-        <form onSubmit={handleSubmit}>
+    return (
+        <div className="row">
+          <div className="col-sm-6">
+            <form onSubmit={handleSubmit}>
           <h1>File a new claim:</h1>
-          <div className="form-group">
+              <div className="form-group">
             <label htmlFor="details">details</label>
             <input type="text" className="form-control" placeholder="details"
                    value={details} onChange={(e) => setDetails(e.target.value)}/>
-          </div>
-          <div className="form-group">
+              </div>
+              <div className="form-group">
             <label /*</div>htmlFor="title"*/>Supporting Documents Upload</label>
-          </div>
-          <RenderOnRole roles={['user']}>
+              </div>
+              <RenderOnRole roles={['user']}>
             <button type="submit" className="btn btn-primary">File Claim</button>
-          </RenderOnRole>
-        </form>
-      </div>
-    </div>
-  );
+              </RenderOnRole>
+            </form>
+          </div>
+        </div>
+      );
 }
-
+    
 export default ClaimForm
