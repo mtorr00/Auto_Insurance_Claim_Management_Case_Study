@@ -4,15 +4,9 @@ server:
     include-message: always
     include-binding-errors: always
 
-jwt:
-  auth:
-    converter:
-      resource-id: movies-app
-      principal-attribute: preferred_username
-
 app:
-  cors:
-    allowed-origins: http://localhost:3000
+  jwtSecret: secretkey
+  jwtExpirationMs: 86400000
 
 spring:
   datasource:
@@ -22,20 +16,13 @@ spring:
     username: root
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
-        dialect:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         format_sql: true
     show-sql: true
-  main:
-    allow-circular-references: true
-    security:
-      oauth2:
-        resourceserver:
-          jwt:
-            issuer-uri: http://localhost:8180/realms/aicm2
-            jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
 
   mail:
     host: localhost
@@ -54,21 +41,3 @@ spring:
           connectiontimeout: 5000
           timeout: 3000
           writetimeout: 5000
-
-management:
-  endpoints:
-    web:
-      exposure.include: beans, env, health, info, metrics, mappings
-  endpoint:
-    health:
-      show-details: always
-
-springdoc:
-  show-actuator: true
-  swagger-ui:
-    groups-order: DESC
-    disable-swagger-default-url: true
-
-logging:
-  level:
-    org.springframework.security: DEBUG

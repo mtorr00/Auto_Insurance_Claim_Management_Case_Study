@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 
 
@@ -19,10 +20,17 @@ public class ClaimEntity {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @NotBlank
     private String filedBy;
+
     private String filedByEmail;
+
+    @NotBlank
     private String incidentDetails;
+
+    @NotBlank
     private String status;
-    private ArrayList<String> urlsSupportingDocs = new ArrayList<>();
+
+    private String urlsSupportingDocs[];
 
 }

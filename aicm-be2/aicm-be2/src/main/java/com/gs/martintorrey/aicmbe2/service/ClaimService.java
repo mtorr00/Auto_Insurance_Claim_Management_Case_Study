@@ -7,11 +7,10 @@ import java.util.List;
 
 public interface ClaimService {
     //User
-    List<ClaimEntity> getClaims(String username);
-    ClaimEntity createClaim(ClaimEntity claim);
+    List<ClaimEntity> getClaims(String username, String authType);
+    ClaimEntity createClaim(String username, ClaimEntity claim, String authType);
 
     //admin only
-    List<ClaimEntity> getAllClaims();
-    ClaimEntity saveClaim(ClaimEntity claim);
-    void deleteClaim(ClaimEntity claim);
+    ClaimEntity saveClaim(String username, ClaimEntity claim, String authType);
+    void deleteClaim(String username, ClaimEntity claim, String authType);
 }
