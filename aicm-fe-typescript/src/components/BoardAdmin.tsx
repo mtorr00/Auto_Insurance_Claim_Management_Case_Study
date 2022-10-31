@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 
 import { getAdminBoard } from "../services/user.service";
 import EventBus from "../common/EventBus";
+import ClaimCard from "./claims/ClaimCard";
+import AdminButton from "./claims/AdminButton";
 
 const BoardAdmin: React.FC = () => {
   const [content, setContent] = useState<string>("");
@@ -33,6 +35,8 @@ const BoardAdmin: React.FC = () => {
       <header className="jumbotron">
         <h3>{content}</h3>
       </header>
+      
+      <ClaimCard />
     </div>
   );
 };

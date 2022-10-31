@@ -48,35 +48,35 @@ const App: React.FC = () => {
   return (
     <div>
       <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <Link to={"/"} className="navbar-brand">
-          bezKoder
+        <Link to={"/"} className="navbar-brand coral-fontcolor">
+          THE OFFICIAL JOHNALBESA(SPONSORED) AUTO INSURANCE CLAIM MANAGEMENT SYSTEM
         </Link>
         <div className="navbar-nav mr-auto">
-          <li className="nav-item">
-            <Link to={"/home"} className="nav-link">
+          <li className="nav-item coral-fontcolor">
+            <Link to={"/home"} className="nav-link coral-fontcolor">
               Home
             </Link>
           </li>
 
           {showModeratorBoard && (
-            <li className="nav-item">
-              <Link to={"/mod"} className="nav-link">
+            <li className="nav-item coral-fontcolor">
+              <Link to={"/mod"} className="nav-link coral-fontcolor">
                 Moderator Board
               </Link>
             </li>
           )}
 
           {showAdminBoard && (
-            <li className="nav-item">
-              <Link to={"/admin"} className="nav-link">
+            <li className="nav-item coral-fontcolor">
+              <Link to={"/admin"} className="nav-link coral-fontcolor">
                 Admin Board
               </Link>
             </li>
           )}
 
           {currentUser && (
-            <li className="nav-item">
-              <Link to={"/user"} className="nav-link">
+            <li className="nav-item coral-fontcolor">
+              <Link to={"/user"} className="nav-link coral-fontcolor">
                 User
               </Link>
             </li>
@@ -85,27 +85,27 @@ const App: React.FC = () => {
 
         {currentUser ? (
           <div className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <Link to={"/profile"} className="nav-link">
+            <li className="nav-item coral-fontcolor">
+              <Link to={"/profile"} className="nav-link coral-fontcolor">
                 {currentUser.username}
               </Link>
             </li>
-            <li className="nav-item">
-              <a href="/login" className="nav-link" onClick={logOut}>
+            <li className="nav-item coral-fontcolor">
+              <a href="/login" className="nav-link coral-fontcolor" onClick={logOut}>
                 LogOut
               </a>
             </li>
           </div>
         ) : (
           <div className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <Link to={"/login"} className="nav-link">
+            <li className="nav-item coral-fontcolor">
+              <Link to={"/login"} className="nav-link coral-fontcolor">
                 Login
               </Link>
             </li>
 
-            <li className="nav-item">
-              <Link to={"/register"} className="nav-link">
+            <li className="nav-item coral-fontcolor">
+              <Link to={"/register"} className="nav-link coral-fontcolor">
                 Sign Up
               </Link>
             </li>
