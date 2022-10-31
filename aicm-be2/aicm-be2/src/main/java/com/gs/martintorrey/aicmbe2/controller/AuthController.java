@@ -1,17 +1,17 @@
 package com.gs.martintorrey.aicmbe2.controller;
 
 
+import com.gs.martintorrey.aicmbe2.exception.TokenRefreshException;
 import com.gs.martintorrey.aicmbe2.model.ERole;
+import com.gs.martintorrey.aicmbe2.model.RefreshToken;
 import com.gs.martintorrey.aicmbe2.model.Role;
 import com.gs.martintorrey.aicmbe2.model.User;
-import com.gs.martintorrey.aicmbe2.payload.JwtResponse;
-import com.gs.martintorrey.aicmbe2.payload.LoginRequest;
-import com.gs.martintorrey.aicmbe2.payload.MessageResponse;
-import com.gs.martintorrey.aicmbe2.payload.SignUpRequest;
+import com.gs.martintorrey.aicmbe2.payload.*;
 import com.gs.martintorrey.aicmbe2.repository.RoleRepository;
 import com.gs.martintorrey.aicmbe2.repository.UserRepository;
 import com.gs.martintorrey.aicmbe2.security.jwt.JwtUtils;
 import com.gs.martintorrey.aicmbe2.security.services.UserDetailsImpl;
+import com.gs.martintorrey.aicmbe2.service.RefreshTokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -42,24 +42,44 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
+    @Autowired
+    RefreshTokenService refreshTokenService;
+
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest){
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),loginRequest.getPassword()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtToken(authentication);
-
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        String jwt = jwtUtils.generateJwtToken(authentication);
         List<String> roles = userDetails.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
+        RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
+
         return ResponseEntity.ok(new JwtResponse(jwt,
+                refreshToken.getToken(),
                 userDetails.getId(),
                 userDetails.getUsername(),
                 userDetails.getEmail(),
                 roles));
+    }
+
+    @PostMapping("/refreshtoken")
+    public ResponseEntity<?> refreshtoken(@Valid @RequestBody TokenRefreshRequest request) {
+        String requestRefreshToken = request.getRefreshToken();
+
+        return refreshTokenService.findByToken(requestRefreshToken)
+                .map(refreshTokenService::verifyExpiration)
+                .map(RefreshToken::getUser)
+                .map(user -> {
+                    String token = jwtUtils.generateTokenFromUsername(user.getUsername());
+                    return ResponseEntity.ok(new TokenRefreshResponse(token, requestRefreshToken));
+                })
+                .orElseThrow(() -> new TokenRefreshException(requestRefreshToken,
+                        "Refresh token is not in database!"));
     }
 
     @PostMapping("/signup")
@@ -115,5 +135,12 @@ public class AuthController {
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+    @PostMapping("/signout")
+    public ResponseEntity<?> logoutUser() {
+        UserDetailsImpl userDetails = (UserDetailsImpl) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Long userId = userDetails.getId();
+        refreshTokenService.deleteByUserId(userId);
+        return ResponseEntity.ok(new MessageResponse("Log out successful!"));
     }
 }
